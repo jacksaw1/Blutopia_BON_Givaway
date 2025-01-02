@@ -2,7 +2,7 @@
 // @namespace    https://openuserjs.org/users/jacksaw
 // @name         Blutopia BON Giveaway
 // @description  Enables the functionality to become poor
-// @version      1.7.0
+// @version      1.7.1
 // @updateURL    https://openuserjs.org/meta/jacksaw/Blutopia_BON_Giveaway.meta.js
 // @downloadURL  https://openuserjs.org/install/jacksaw/Blutopia_BON_Giveaway.user.js
 // @license      GPL-3.0-or-later
@@ -280,16 +280,19 @@ function injectMenu() {
     settingsButton.onclick = toggleSettings
 
     const randomCheckbox = document.getElementById("randomToggle");
-    randomCheckbox.checked = !GENERAL_SETTINGS.disbable_random
-    randomCheckbox.addEventListener('change', function() { GENERAL_SETTINGS.disable_random = !randomCheckbox.checked; });
+    randomCheckbox.checked = !localStorage.getItem("giveaway-disableRandom")
+    GENERAL_SETTINGS.disable_random = !randomCheckbox.checked
+    randomCheckbox.addEventListener('change', function() { GENERAL_SETTINGS.disable_random = !randomCheckbox.checked; localStorage.setItem("giveaway-disableRandom", !randomCheckbox.checked) });
 
     const luckyCheckbox = document.getElementById("luckyToggle");
-    luckyCheckbox.checked = !GENERAL_SETTINGS.disable_lucky
-    luckyCheckbox.addEventListener('change', function() { GENERAL_SETTINGS.disable_lucky = !luckyCheckbox.checked; });
+    luckyCheckbox.checked = !localStorage.getItem("giveaway-disableLucky")
+    GENERAL_SETTINGS.disable_lucky = !luckyCheckbox.checked
+    luckyCheckbox.addEventListener('change', function() { GENERAL_SETTINGS.disable_lucky = !luckyCheckbox.checked; localStorage.setItem("giveaway-disableLucky", !luckyCheckbox.checked) });
 
     const freeCheckbox = document.getElementById("freeToggle");
-    freeCheckbox.checked = !GENERAL_SETTINGS.disable_free
-    freeCheckbox.addEventListener('change', function() { GENERAL_SETTINGS.disable_free = !freeCheckbox.checked; });
+    freeCheckbox.checked = !localStorage.getItem("giveaway-disableFree")
+    GENERAL_SETTINGS.disable_free = !freeCheckbox.checked
+    freeCheckbox.addEventListener('change', function() { GENERAL_SETTINGS.disable_free = !freeCheckbox.checked;localStorage.setItem("giveaway-disableFree", !freeCheckbox.checked)  });
 
     coinHeader = document.getElementById("coinHeader")
     coinHeader.textContent = document.getElementsByClassName("ratio-bar__points")[0].firstElementChild.textContent.trim()
